@@ -1,13 +1,16 @@
 package ru.dubna.todolist.entities.user;
 
-import jakarta.persistence.*;
+import java.util.List;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ru.dubna.todolist.config.db.BaseEntity;
 import ru.dubna.todolist.entities.tasks.Task;
-
-import java.util.List;
 
 @Entity
 @Table(name = "users")

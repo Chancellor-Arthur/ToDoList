@@ -15,10 +15,10 @@ public class UserInputDto {
 	private String username;
 
 	@NotBlank(message = "Пароль не может быть пустым")
-	@Size(min = 6, max = 200, message = "Пароль должен быть от 6 до 200 символов длиной")
+	@Size(min = 5, max = 200, message = "Пароль должен быть от 6 до 200 символов длиной")
 	private String password;
 
 	@NotBlank(message = "Пароль не может быть пустым")
-	@Size(min = 6, max = 200, message = "Пароль должен быть от 6 до 200 символов длиной")
+	@Size(min = 5, max = 200, message = "Пароль должен быть от 6 до 200 символов длиной")
 	private String confirmPassword;
 }

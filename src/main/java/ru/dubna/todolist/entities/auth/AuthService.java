@@ -1,11 +1,12 @@
 package ru.dubna.todolist.entities.auth;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.dubna.todolist.entities.auth.dtos.AuthInputDto;
+
+import lombok.RequiredArgsConstructor;
 import ru.dubna.todolist.entities.auth.dtos.AuthOutputDto;
+import ru.dubna.todolist.entities.auth.dtos.CredentialsDto;
 import ru.dubna.todolist.entities.auth.dtos.UserInputDto;
 import ru.dubna.todolist.entities.auth.validators.AuthValidator;
 import ru.dubna.todolist.entities.auth.validators.RegistrationValidator;
@@ -21,10 +22,10 @@ public class AuthService {
 	private final RegistrationValidator registrationValidator;
 	private final AuthValidator authValidator;
 
-	public AuthOutputDto signIn(AuthInputDto authInputDto) {
-		authValidator.validate(authInputDto);
+	public AuthOutputDto signIn(CredentialsDto credentialsDto) {
+		authValidator.validate(credentialsDto);
 
-		UserDetails userDetails = userService.loadUserByUsername(authInputDto.getUsername());
+		UserDetails userDetails = userService.loadUserByUsername(credentialsDto.getUsername());
 		return new AuthOutputDto(userDetails.getUsername());
 	}
 
@@ -32,6 +33,6 @@ public class AuthService {
 		registrationValidator.validate(userInputDto);
 
 		User user = userService.create(userInputDto);
-		return new UserOutputDto(user.getUsername());
+		return new UserOutputDto(user.getId(), user.getUsername());
 	}
 }

@@ -1,6 +1,9 @@
 package ru.dubna.todolist.entities.user;
 
-import lombok.RequiredArgsConstructor;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -8,12 +11,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import lombok.RequiredArgsConstructor;
 import ru.dubna.todolist.entities.auth.dtos.UserInputDto;
 import ru.dubna.todolist.exceptions.specific.NotFoundException;
-
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional
@@ -24,7 +25,7 @@ public class UserService implements UserDetailsService {
 
 	public User create(UserInputDto userInputDto) {
 		User user = new User(userInputDto.getUsername(), passwordEncoder.encode(userInputDto.getPassword()));
-        return userRepository.save(user);
+		return userRepository.save(user);
 	}
 
 	public Optional<User> findByUsername(String username) {

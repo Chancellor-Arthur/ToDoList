@@ -1,6 +1,6 @@
 ### Database config ###
 spring.datasource.driverClassName=org.postgresql.Driver
-spring.datasource.url=jdbc:postgresql://localhost:5433/todo-list
+spring.datasource.url=jdbc:postgresql://localhost:5432/todo-list
 spring.datasource.username=postgres
 spring.datasource.password=postgres
 
@@ -30,3 +30,6 @@ logging.file.name=./logs/app.log
 
 ### Actuator config ###
 management.endpoints.web.exposure.include=*
+
+### Security params ###
+auth.cookie.hmac-key=my-secret

@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthInputDto {
+public class CredentialsDto {
 	@NotBlank(message = "Имя пользователя не может быть пустым")
 	private String username;
 
