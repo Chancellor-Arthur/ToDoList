@@ -1,4 +1,4 @@
-package ru.dubna.todolist.entities.user;
+package ru.dubna.todolist.models.user;
 
 import java.util.Collections;
 import java.util.List;
@@ -13,8 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
-import ru.dubna.todolist.entities.auth.dtos.UserInputDto;
 import ru.dubna.todolist.exceptions.specific.NotFoundException;
+import ru.dubna.todolist.models.auth.dtos.UserInputDto;
 
 @Service
 @Transactional
@@ -32,6 +32,10 @@ public class UserService implements UserDetailsService {
 		return userRepository.findByUsername(username);
 	}
 
+	public Optional<User> findById(int id) {
+		return userRepository.findById(id);
+	}
+
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		User user = getByUsername(username);
@@ -45,7 +49,12 @@ public class UserService implements UserDetailsService {
 	}
 
 	public User getByUsername(String username) {
-		return findByUsername(username)
-				.orElseThrow(() -> new NotFoundException(String.format("Пользователь '%s' не найден", username)));
+		return findByUsername(username).orElseThrow(
+				() -> new NotFoundException(String.format("Пользователь с именем: '%s' не найден", username)));
+	}
+
+	public User getById(int id) {
+		return findById(id).orElseThrow(
+				() -> new NotFoundException(String.format("Пользователь с идентификатором: '%d' не найден", id)));
 	}
 }

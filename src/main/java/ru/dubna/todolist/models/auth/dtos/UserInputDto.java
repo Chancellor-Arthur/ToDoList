@@ -1,4 +1,4 @@
-package ru.dubna.todolist.entities.auth.dtos;
+package ru.dubna.todolist.models.auth.dtos;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -15,10 +15,10 @@ public class UserInputDto {
 	private String username;
 
 	@NotBlank(message = "Пароль не может быть пустым")
-	@Size(min = 5, max = 200, message = "Пароль должен быть от 6 до 200 символов длиной")
+	@Size(min = 5, max = 200, message = "Пароль должен быть от 5 до 200 символов длиной")
 	private String password;
 
 	@NotBlank(message = "Пароль не может быть пустым")
-	@Size(min = 5, max = 200, message = "Пароль должен быть от 6 до 200 символов длиной")
+	@Size(min = 5, max = 200, message = "Пароль должен быть от 5 до 200 символов длиной")
 	private String confirmPassword;
 }

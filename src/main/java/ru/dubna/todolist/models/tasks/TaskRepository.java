@@ -1,4 +1,4 @@
-package ru.dubna.todolist.entities.tasks;
+package ru.dubna.todolist.models.tasks;
 
 import java.util.List;
 

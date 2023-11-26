@@ -1,4 +1,4 @@
-package ru.dubna.todolist.entities.user;
+package ru.dubna.todolist.models.user;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ru.dubna.todolist.config.db.BaseEntity;
-import ru.dubna.todolist.entities.tasks.Task;
+import ru.dubna.todolist.models.tasks.Task;
 
 @Entity
 @Table(name = "users")
@@ -26,6 +26,10 @@ public class User extends BaseEntity {
 
 	@OneToMany(mappedBy = "user")
 	private List<Task> tasks;
+
+	public User(int id) {
+		this.id = id;
+	}
 
 	public User(String username, String password) {
 		this.username = username;

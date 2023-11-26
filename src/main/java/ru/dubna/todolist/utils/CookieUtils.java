@@ -12,20 +12,20 @@ import javax.crypto.spec.SecretKeySpec;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import ru.dubna.todolist.entities.auth.dtos.CredentialsDto;
+import ru.dubna.todolist.models.auth.dtos.CookieInfoDto;
 
 @Component
 public class CookieUtils {
 	@Value("${auth.cookie.hmac-key}")
 	private String secretKey;
 
-	public String createToken(CredentialsDto credentials) {
-		return credentials.getUsername() + "&" + calculateHmac(credentials.getUsername());
+	public String createToken(CookieInfoDto cookieInfo) {
+		return cookieInfo.getId() + "&" + cookieInfo.getUsername() + "&" + calculateHmac(cookieInfo);
 	}
 
-	public String calculateHmac(String username) {
+	public String calculateHmac(CookieInfoDto cookieInfo) {
 		byte[] secretKeyBytes = Objects.requireNonNull(secretKey).getBytes(StandardCharsets.UTF_8);
-		byte[] valueBytes = username.getBytes(StandardCharsets.UTF_8);
+		byte[] valueBytes = (cookieInfo.getId() + "&" + cookieInfo.getUsername()).getBytes(StandardCharsets.UTF_8);
 
 		try {
 			Mac mac = Mac.getInstance("HmacSHA512");

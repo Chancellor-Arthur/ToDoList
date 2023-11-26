@@ -19,6 +19,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import ru.dubna.todolist.models.auth.dtos.CookieInfoDto;
 import ru.dubna.todolist.utils.CookieUtils;
 
 @Component
@@ -38,12 +39,13 @@ public class CookieAuthenticationFilter extends OncePerRequestFilter {
 		if (cookieAuth.isPresent()) {
 			String[] parts = cookieAuth.get().getValue().split("&");
 
-			String username = parts[0];
-			String hmac = parts[1];
+			int id = Integer.parseInt(parts[0]);
+			String username = parts[1];
+			String hmac = parts[2];
 
-			if (hmac.equals(cookieUtils.calculateHmac(username))
+			if (hmac.equals(cookieUtils.calculateHmac(new CookieInfoDto(id, username)))
 					&& SecurityContextHolder.getContext().getAuthentication() == null) {
-				UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, null,
+				UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, id,
 						Collections.singletonList(new SimpleGrantedAuthority("ALL")));
 				SecurityContextHolder.getContext().setAuthentication(token);
 			}

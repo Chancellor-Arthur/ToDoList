@@ -1,10 +1,10 @@
-package ru.dubna.todolist.entities.tasks.dtos;
+package ru.dubna.todolist.models.tasks.dtos;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.dubna.todolist.entities.tasks.TaskStatuses;
+import ru.dubna.todolist.models.tasks.TaskStatuses;
 
 @Data
 @AllArgsConstructor

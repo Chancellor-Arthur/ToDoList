@@ -1,4 +1,4 @@
-package ru.dubna.todolist.entities.user;
+package ru.dubna.todolist.models.user;
 
 import java.util.Optional;
 

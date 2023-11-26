@@ -1,11 +1,11 @@
-package ru.dubna.todolist.entities.tasks;
+package ru.dubna.todolist.models.tasks;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ru.dubna.todolist.config.db.BaseEntity;
-import ru.dubna.todolist.entities.user.User;
+import ru.dubna.todolist.models.user.User;
 
 @Entity
 @Table(name = "tasks")
@@ -19,6 +19,7 @@ public class Task extends BaseEntity {
 	@Column(name = "description")
 	private String description;
 
+	@Enumerated(EnumType.STRING)
 	@Column(name = "status")
 	private TaskStatuses status;
 
@@ -33,10 +34,11 @@ public class Task extends BaseEntity {
 		this.user = user;
 	}
 
-	public Task(int id, String name, String description, TaskStatuses status) {
+	public Task(int id, String name, String description, TaskStatuses status, User user) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.status = status;
+		this.user = user;
 	}
 }

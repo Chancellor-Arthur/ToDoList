@@ -24,7 +24,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import lombok.RequiredArgsConstructor;
-import ru.dubna.todolist.entities.user.UserService;
+import ru.dubna.todolist.models.user.UserService;
 
 @Configuration
 @EnableWebSecurity

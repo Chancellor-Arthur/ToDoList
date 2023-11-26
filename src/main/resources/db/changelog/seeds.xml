@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="1700036285149-5" author="admin">
+        <insert tableName="users">
+            <column name="username" value="admin"/>
+            <!-- password: admin -->
+            <column name="password" value="$2a$10$L/qtyUi5iGnWVbA2fOXOHuIDnmJziRRtOz8lagMY/d31Y2l1c/3xS"/>
+        </insert>
+        <insert tableName="users">
+            <column name="username" value="user"/>
+            <!-- password: admin -->
+            <column name="password" value="$2a$10$L/qtyUi5iGnWVbA2fOXOHuIDnmJziRRtOz8lagMY/d31Y2l1c/3xS"/>
+        </insert>
+
+        <insert tableName="tasks">
+            <column name="name" value="Сделать дело"/>
+            <column name="description" value="Важное дело"/>
+            <column name="status" value="IN_PROGRESS"/>
+            <column name="user_id" value="1"/>
+        </insert>
+        <insert tableName="tasks">
+            <column name="name" value="Сделать ещё одно важное дело"/>
+            <column name="status" value="TODO"/>
+            <column name="user_id" value="1"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

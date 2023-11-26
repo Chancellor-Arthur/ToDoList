@@ -1,4 +1,4 @@
-package ru.dubna.todolist.entities.auth.dtos;
+package ru.dubna.todolist.models.auth.dtos;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
