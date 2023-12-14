@@ -2,7 +2,10 @@ package ru.dubna.todolist.models.auth;
 
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
+import java.util.Optional;
+import java.util.stream.Stream;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,15 +47,39 @@ public class AuthController {
 		servletResponse.addCookie(authCookie);
 	}
 
+	private void deleteCookie(HttpServletResponse servletResponse) {
+		Cookie authCookie = new Cookie(CookieAuthenticationFilter.cookieName, "");
+		authCookie.setHttpOnly(true);
+		authCookie.setSecure(true);
+		authCookie.setMaxAge(0);
+		authCookie.setPath("/");
+
+		servletResponse.addCookie(authCookie);
+	}
+
 	@PostMapping("/login")
 	@Operation(summary = "Авторизация пользователя", description = "Позволяет пользователю авторизоваться в системе")
 	@ApiResponse(responseCode = "200", content = { @Content(schema = @Schema(implementation = CookieInfoDto.class)) })
 	@ApiResponse(responseCode = "401", content = {
 			@Content(schema = @Schema(implementation = DefaultExceptionPayload.class)) })
-	public CookieInfoDto signIn(@Valid @RequestBody CredentialsDto credentials, HttpServletResponse servletResponse) {
+	public CookieInfoDto signIn(@Valid @RequestBody CredentialsDto credentials, HttpServletRequest servletRequest,
+			HttpServletResponse servletResponse) {
+		Optional<Cookie> cookieAuth = Stream.of(Optional.ofNullable(servletRequest.getCookies()).orElse(new Cookie[0]))
+				.filter(cookie -> CookieAuthenticationFilter.cookieName.equals(cookie.getName())).findFirst();
+
 		CookieInfoDto cookieInfo = authService.signIn(credentials);
-		createCookie(cookieInfo, servletResponse);
+		if (cookieAuth.isEmpty()) {
+			createCookie(cookieInfo, servletResponse);
+		}
 		return cookieInfo;
+	}
+
+	@PostMapping("/logout")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@Operation(summary = "Выход пользователя из системы")
+	@ApiResponse(responseCode = "204")
+	public void signOut(HttpServletResponse servletResponse) {
+		deleteCookie(servletResponse);
 	}
 
 	@PostMapping("/registration")
